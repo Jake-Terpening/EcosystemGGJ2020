@@ -162,12 +162,13 @@ MonoBehaviour:
   name: 
   foodPerCycle: 6
   combatPower: 4
-  movePerCycle: 5
+  moveSpeed: 3
   foodConsumed: 0
   herbivoir: 0
   carnivoir: 1
   debugMove: {x: 0, y: 0}
   target: {fileID: 0}
+  prefab: {fileID: 2152283582711725713}
 --- !u!58 &5873910451621236747
 CircleCollider2D:
   m_ObjectHideFlags: 0

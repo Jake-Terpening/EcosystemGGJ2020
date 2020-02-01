@@ -14,6 +14,8 @@ public class Eater : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (owner.foodConsumed > owner.foodPerCycle)        //don't eat food if you are not hungry
+            return;
         Debug.Log("collision with " + collision.gameObject);
         GameObject go = collision.gameObject;
         if (owner.herbivoir)

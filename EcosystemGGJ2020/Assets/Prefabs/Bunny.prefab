@@ -232,12 +232,13 @@ MonoBehaviour:
   name: 
   foodPerCycle: 2
   combatPower: 1
-  movePerCycle: 3
+  moveSpeed: 3
   foodConsumed: 0
   herbivoir: 1
   carnivoir: 0
-  debugMove: {x: 3, y: 1}
+  debugMove: {x: 3, y: 2}
   target: {fileID: 0}
+  prefab: {fileID: 8351230102255704073}
 --- !u!50 &-2993801616049005130
 Rigidbody2D:
   serializedVersion: 4
