@@ -8,7 +8,7 @@ public class Animal : Consumable
 
     public int foodPerCycle;
     public int combatPower;
-    public float movePerCycle;
+    public float moveSpeed;
 
 
     public int foodConsumed;
@@ -22,11 +22,17 @@ public class Animal : Consumable
 
     public GameObject target;
 
-    void RunCycle()
-    {
-        
-    }
+    public GameObject prefab;
 
+    private bool hasRunEndCycle;
+
+    void OnCycleEnd()
+    {
+        if (foodPerCycle < foodConsumed)
+            Destroy(this.gameObject);
+        else
+            Instantiate(prefab);
+    }
 
     private void DebugMove()//force animal to go in a certain direction for debugging purposes
     {
@@ -39,6 +45,7 @@ public class Animal : Consumable
     }
     private void Start()
     {
+        hasRunEndCycle = true;
         DebugMove();
     }
 
@@ -47,10 +54,17 @@ public class Animal : Consumable
         //Find direction
         Vector3 dir = (target.transform.position - rb2d.transform.position).normalized;
 
-        rb2d.MovePosition(rb2d.transform.position + dir * movePerCycle * Time.fixedDeltaTime);
+        rb2d.MovePosition(rb2d.transform.position + dir * moveSpeed * Time.fixedDeltaTime);
     }
     private void Update()
     {
+        if (!CycleController.cycleActive)
+        {
+            if (!hasRunEndCycle)
+                OnCycleEnd();
+            return;              
+        }
+
         if(target)
         {
             MoveTowardTarget();

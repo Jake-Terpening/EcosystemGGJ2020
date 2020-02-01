@@ -13,23 +13,24 @@ public class Tracker : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (owner.foodConsumed > owner.foodPerCycle)    //don't look for food if you are not hungry
+            return;
         Debug.Log("collision with " + collision.gameObject);
         GameObject go = collision.gameObject;
         if (owner.herbivoir)
         {
             if (go.GetComponent<Plant>())
             {
-                Debug.Log("I smell a plant");
                 owner.target = go;
             }
         }
         if (owner.carnivoir)
         {
-            Debug.Log("I eat animals");
             if (go.GetComponent<Animal>())
             {
-                Debug.Log("I found an animal");
-                owner.target = go;
+                Animal target = go.GetComponent<Animal>();
+                if (owner.combatPower > target.combatPower)
+                    owner.target = go;
             }
         }
     }
