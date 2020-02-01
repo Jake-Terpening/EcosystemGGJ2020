@@ -10,6 +10,7 @@ public class Animal : Consumable
     public int combatPower;
     public float movePerCycle;
 
+
     public int foodConsumed;
 
     public bool herbivoir;
@@ -18,6 +19,8 @@ public class Animal : Consumable
     private Rigidbody2D rb2d;
 
     public Vector2 debugMove;
+
+    public GameObject target;
 
     void RunCycle()
     {
@@ -36,6 +39,30 @@ public class Animal : Consumable
     }
     private void Start()
     {
+        DebugMove();
+    }
+
+    public void MoveTowardTarget()
+    {
+        //Find direction
+        Vector3 dir = (target.transform.position - rb2d.transform.position).normalized;
+
+        rb2d.MovePosition(rb2d.transform.position + dir * movePerCycle * Time.fixedDeltaTime);
+    }
+    private void Update()
+    {
+        if(target)
+        {
+            MoveTowardTarget();
+        }
+    }
+
+    public void EatFood(Consumable food)
+    {
+        print("yummy");
+        foodConsumed += food.consumptionReward;
+        Destroy(food.gameObject);
+        target = null;
         DebugMove();
     }
 }
